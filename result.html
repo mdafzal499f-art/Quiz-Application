@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Result - QuizMaster</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="responsive.css">
+</head>
+<body>
+
+<header class="navbar">
+    <a href="index.html" class="logo">Quiz<span>Master</span></a>
+    <a href="dashboard.html" class="nav-btn">Dashboard</a>
+</header>
+
+<main class="result-container">
+
+    <div class="result-card">
+        <div class="result-icon">🏆</div>
+
+        <span class="tag">QUIZ COMPLETED</span>
+        <h1>Congratulations!</h1>
+        <p class="result-subtitle">You have completed your quiz.</p>
+
+        <div class="score-circle">
+            <span id="percentage">0%</span>
+            <small>YOUR SCORE</small>
+        </div>
+
+        <h2 id="subjectResult">Computer Quiz</h2>
+        <p id="performance">Keep learning and improving!</p>
+
+        <div class="result-stats">
+            <div>
+                <h2 id="correctAnswers">0</h2>
+                <p>Correct</p>
+            </div>
+
+            <div>
+                <h2 id="wrongAnswers">0</h2>
+                <p>Wrong</p>
+            </div>
+
+            <div>
+                <h2 id="totalScore">0/100</h2>
+                <p>Points</p>
+            </div>
+        </div>
+
+        <div class="result-buttons">
+            <a href="dashboard.html" class="primary-btn">Dashboard</a>
+            <button id="retryBtn" class="secondary-btn">Try Again</button>
+        </div>
+    </div>
+
+</main>
+
+<footer>
+    <p>© 2026 QuizMaster. All Rights Reserved.</p>
+</footer>
+
+<script>
+const result = JSON.parse(
+    localStorage.getItem("lastQuizResult") || "null"
+);
+
+if (!result) {
+    window.location.href = "dashboard.html";
+} else {
+    document.getElementById("percentage").textContent =
+        result.percentage + "%";
+
+    document.getElementById("subjectResult").textContent =
+        result.subject + " Quiz";
+
+    document.getElementById("correctAnswers").textContent =
+        result.correct;
+
+    document.getElementById("wrongAnswers").textContent =
+        result.wrong;
+
+    document.getElementById("totalScore").textContent =
+        result.score + "/" + result.total;
+
+    let message = "Keep learning and improving!";
+
+    if (result.percentage >= 80) {
+        message = "Excellent! Outstanding performance! 🌟";
+    } else if (result.percentage >= 60) {
+        message = "Great job! You are doing well! 👏";
+    } else if (result.percentage >= 40) {
+        message = "Good effort! Keep practicing! 💪";
+    }
+
+    document.getElementById("performance").textContent = message;
+}
+
+document.getElementById("retryBtn").addEventListener("click", () => {
+    window.location.href = "quiz.html";
+});
+</script>
+
+</body>
+</html>

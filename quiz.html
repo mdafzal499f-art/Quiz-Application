@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Take Quiz - QuizMaster</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="responsive.css">
+</head>
+<body>
+
+<header class="navbar">
+    <a href="dashboard.html" class="logo">Quiz<span>Master</span></a>
+    <a href="dashboard.html" class="nav-btn">Exit Quiz</a>
+</header>
+
+<main class="quiz-container">
+
+    <div class="quiz-top">
+        <div>
+            <span class="tag">YOUR CHALLENGE</span>
+            <h2 id="subjectTitle">Computer Quiz</h2>
+        </div>
+
+        <div class="timer-box">
+            <span>⏱️</span>
+            <span id="timer">30</span>
+            <small>Seconds</small>
+        </div>
+    </div>
+
+    <div class="quiz-progress">
+        <div id="progressBar"></div>
+    </div>
+
+    <div class="question-info">
+        <span id="questionNumber">Question 1 of 10</span>
+        <span>+10 Points</span>
+    </div>
+
+    <section class="question-card">
+        <h2 id="questionText">Loading question...</h2>
+        <div id="optionsContainer"></div>
+    </section>
+
+    <div class="quiz-navigation">
+        <button id="prevBtn" class="secondary-btn">← Previous</button>
+        <button id="nextBtn" class="primary-btn">Next →</button>
+    </div>
+
+    <div class="question-dots" id="questionDots"></div>
+
+</main>
+
+<footer>
+    <p>© 2026 QuizMaster. All Rights Reserved.</p>
+</footer>
+
+<script src="quiz.js"></script>
+</body>
+</html>

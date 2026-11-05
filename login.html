@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - Quiz Master</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="responsive.css">
+</head>
+<body class="login-body">
+
+<div class="login-container">
+
+    <a href="index.html" class="logo">Quiz<span>Master</span></a>
+
+    <div class="login-card">
+        <div class="login-icon">🧠</div>
+
+        <h1>Welcome Back!</h1>
+        <p class="login-subtitle">Sign in to continue your learning journey.</p>
+
+        <form id="loginForm">
+
+            <label>Email Address</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+
+            <label>Password</label>
+            <div class="password-box">
+                <input type="password" id="password" placeholder="Enter password" required>
+                <button type="button" id="togglePassword">Show</button>
+            </div>
+
+            <div class="login-options">
+                <label class="remember">
+                    <input type="checkbox" id="remember">
+                    Remember me
+                </label>
+                <a href="#" id="forgotPassword">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="login-submit">Sign In →</button>
+        </form>
+
+        <div class="login-divider"><span>OR</span></div>
+
+        <button type="button" class="google-btn" id="googleLogin">
+            🌐 Continue with Google
+        </button>
+
+        <p class="signup-text">
+            Don't have an account?
+            <a href="#" id="signupLink">Create Account</a>
+        </p>
+    </div>
+
+    <p class="login-footer">© 2026 QuizMaster. All Rights Reserved.</p>
+</div>
+
+<script src="auth.js"></script>
+</body>
+</html>

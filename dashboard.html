@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - QuizMaster</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="responsive.css">
+</head>
+<body>
+
+<header class="navbar">
+    <a href="index.html" class="logo">Quiz<span>Master</span></a>
+    <button class="nav-btn" id="logoutBtn">Logout</button>
+</header>
+
+<main class="dashboard">
+
+    <section class="welcome">
+        <div>
+            <span class="tag">YOUR LEARNING SPACE</span>
+            <h1>Hello, <span id="userName">Learner</span> 👋</h1>
+            <p>Ready to challenge your knowledge today?</p>
+        </div>
+        <div class="welcome-icon">🎓</div>
+    </section>
+
+    <section class="dashboard-stats">
+        <div class="stat-card">
+            <span>📚</span>
+            <h2 id="totalQuizzes">0</h2>
+            <p>Quizzes Played</p>
+        </div>
+
+        <div class="stat-card">
+            <span>🏆</span>
+            <h2 id="bestScore">0%</h2>
+            <p>Best Score</p>
+        </div>
+
+        <div class="stat-card">
+            <span>⭐</span>
+            <h2 id="totalPoints">0</h2>
+            <p>Total Points</p>
+        </div>
+    </section>
+
+    <section class="subject-section">
+        <div class="dashboard-heading">
+            <div>
+                <span class="tag">EXPLORE & LEARN</span>
+                <h2>Choose Your Subject</h2>
+            </div>
+        </div>
+
+        <div class="subject-grid">
+            <div class="subject-card">
+                <div>💻</div>
+                <h3>Computer</h3>
+                <p>Technology & Programming</p>
+                <button onclick="startQuiz('Computer')">Start Quiz →</button>
+            </div>
+
+            <div class="subject-card">
+                <div>📐</div>
+                <h3>Mathematics</h3>
+                <p>Numbers & Problem Solving</p>
+                <button onclick="startQuiz('Mathematics')">Start Quiz →</button>
+            </div>
+
+            <div class="subject-card">
+                <div>🔬</div>
+                <h3>Science</h3>
+                <p>Discover the World</p>
+                <button onclick="startQuiz('Science')">Start Quiz →</button>
+            </div>
+
+            <div class="subject-card">
+                <div>🌍</div>
+                <h3>General Knowledge</h3>
+                <p>Explore the World</p>
+                <button onclick="startQuiz('GK')">Start Quiz →</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="history-section">
+        <h2>Recent Quiz Activity</h2>
+        <div id="quizHistory">
+            <p>No quizzes played yet. Start your first quiz!</p>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 QuizMaster. All Rights Reserved.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
