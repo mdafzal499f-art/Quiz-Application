@@ -1,39 +1,50 @@
 
-// QUIZMASTER DASHBOARD
+// QUIZ APPLICATION DASHBOARD
 
-const currentUser = JSON.parse(
-    localStorage.getItem("quizCurrentUser")
-);
+function getCurrentUser() {
+    try {
+        return JSON.parse(localStorage.getItem("quizCurrentUser"));
+    } catch (error) {
+        return null;
+    }
+}
 
-// Check login
+const currentUser = getCurrentUser();
+
+// CHECK LOGIN
 if (document.getElementById("userName")) {
     if (!currentUser) {
-        window.location.href = "login.html";
+        window.location.replace("login.html");
     } else {
         document.getElementById("userName").textContent =
             currentUser.name;
-    }
 
-    loadDashboard();
+        loadDashboard();
+    }
 }
 
-// Start quiz
+// START QUIZ
 function startQuiz(subject) {
+    if (!getCurrentUser()) {
+        window.location.href = "login.html";
+        return;
+    }
+
     localStorage.setItem("selectedSubject", subject);
     window.location.href = "quiz.html";
 }
 
-// Logout
+// LOGOUT
 const logoutBtn = document.getElementById("logoutBtn");
 
 if (logoutBtn) {
-    logoutBtn.addEventListener("click", function () {
+    logoutBtn.addEventListener("click", function() {
         localStorage.removeItem("quizCurrentUser");
-        window.location.href = "login.html";
+        window.location.replace("login.html");
     });
 }
 
-// Load dashboard statistics
+// LOAD DASHBOARD STATISTICS
 function loadDashboard() {
     const history = JSON.parse(
         localStorage.getItem("quizHistory") || "[]"

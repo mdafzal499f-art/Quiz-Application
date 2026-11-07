@@ -1,62 +1,53 @@
-
-const authForm = document.getElementById("authForm");
-const formTitle = document.getElementById("formTitle");
-const formSubtitle = document.getElementById("formSubtitle");
-const nameField = document.getElementById("nameField");
-const nameInput = document.getElementById("name");
-const emailInput = document.getElementById("email");
-const passwordInput = document.getElementById("password");
-const submitBtn = document.getElementById("submitBtn");
-const switchBtn = document.getElementById("switchBtn");
-const switchText = document.getElementById("switchText");
-const authMessage = document.getElementById("authMessage");
-
-let isSignup = false;
-
-function showMessage(message, success = false) {
-    authMessage.textContent = message;
-    authMessage.style.color = success ? "#4ade80" : "#f87171";
+localStorage.removeItem("quizCurrentUser");
+function getUsers() {
+    try {
+        return JSON.parse(localStorage.getItem("quizUsers")) || [];
+    } catch (error) {
+        return [];
+    }
 }
 
-switchBtn.addEventListener("click", function () {
-    isSignup = !isSignup;
-
-    if (isSignup) {
-        formTitle.textContent = "Create Account";
-        formSubtitle.textContent = "Join QuizMaster and start learning.";
-        nameField.hidden = false;
-        nameInput.required = true;
-        submitBtn.textContent = "Create Account";
-        switchText.firstChild.textContent = "Already have an account? ";
-        switchBtn.textContent = "Login";
-    } else {
-        formTitle.textContent = "Welcome Back!";
-        formSubtitle.textContent = "Login to continue your learning journey.";
-        nameField.hidden = true;
-        nameInput.required = false;
-        submitBtn.textContent = "Login";
-        switchText.firstChild.textContent = "Don't have an account? ";
-        switchBtn.textContent = "Sign Up";
+function getCurrentUser() {
+    try {
+        return JSON.parse(localStorage.getItem("quizCurrentUser"));
+    } catch (error) {
+        return null;
     }
+}
 
-    authForm.reset();
-    showMessage("");
-});
+function showMessage(message, success = false) {
+    const authMessage = document.getElementById("authMessage");
 
-authForm.addEventListener("submit", function (event) {
-    event.preventDefault();
+    if (authMessage) {
+        authMessage.textContent = message;
+        authMessage.style.color = success ? "#4ade80" : "#f87171";
+    }
+}
 
-    const email = emailInput.value.trim().toLowerCase();
-    const password = passwordInput.value;
-    const name = nameInput.value.trim();
+// Already logged in? Open Dashboard.
+const currentUser = getCurrentUser();
 
-    let users = JSON.parse(localStorage.getItem("quizUsers")) || [];
+if (currentUser) {
+    if (
+        document.getElementById("loginForm") ||
+        document.getElementById("signupForm")
+    ) {
+        window.location.href = "dashboard.html";
+    }
+}
 
-    if (isSignup) {
-        if (!name) {
-            showMessage("Please enter your name.");
-            return;
-        }
+// SIGNUP SYSTEM
+const signupForm = document.getElementById("signupForm");
+
+if (signupForm) {
+    signupForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim().toLowerCase();
+        const password = document.getElementById("password").value;
+
+        const users = getUsers();
 
         if (users.some(user => user.email === email)) {
             showMessage("Account already exists. Please login.");
@@ -71,21 +62,34 @@ authForm.addEventListener("submit", function (event) {
 
         localStorage.setItem("quizUsers", JSON.stringify(users));
 
-        showMessage("Account created successfully! Please login.", true);
+        localStorage.setItem("quizCurrentUser", JSON.stringify({
+            name: name,
+            email: email
+        }));
 
-        isSignup = false;
-        formTitle.textContent = "Welcome Back!";
-        formSubtitle.textContent = "Login to continue your learning journey.";
-        nameField.hidden = true;
-        nameInput.required = false;
-        submitBtn.textContent = "Login";
-        switchText.firstChild.textContent = "Don't have an account? ";
-        switchBtn.textContent = "Sign Up";
-        authForm.reset();
+        showMessage("Account created! Opening Dashboard...", true);
 
-    } else {
-        const user = users.find(
-            user => user.email === email && user.password === password
+        setTimeout(function() {
+            window.location.href = "dashboard.html";
+        }, 1000);
+    });
+}
+
+// LOGIN SYSTEM
+const loginForm = document.getElementById("loginForm");
+
+if (loginForm) {
+    loginForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const email = document.getElementById("email").value.trim().toLowerCase();
+        const password = document.getElementById("password").value;
+
+        const users = getUsers();
+
+        const user = users.find(user =>
+            user.email === email &&
+            user.password === password
         );
 
         if (!user) {
@@ -100,8 +104,8 @@ authForm.addEventListener("submit", function (event) {
 
         showMessage("Login successful! Redirecting...", true);
 
-        setTimeout(() => {
+        setTimeout(function() {
             window.location.href = "dashboard.html";
         }, 1000);
-    }
-});
+    });
+}
